@@ -12,7 +12,7 @@ frame= Frame(bg="black")
 label= Label(frame, text= "Login",bg='black', fg="#FF3399", font="Arial, 30", pady="40")
 user_label = Label(frame, text='Username',bg='black',fg="white", font="Arial, 16")
 user= Entry(frame, font="Arial, 16")
-password= Entry(frame, font="Arial, 16")
+password= Entry(frame, font="Arial, 16", show="*")
 password_label= Label(frame, text='Password',bg='black',fg="white", font="Arial, 16")
 
 label.grid(row=0, column=0, columnspan=2, sticky="news")
