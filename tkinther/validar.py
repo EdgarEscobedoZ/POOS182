@@ -10,8 +10,6 @@ class validacion:
     def validar(self,user, contra):
         return user == self.__usuario and contra == self.__contraseña
     
-    
-    
 class generacion:
     def __init__ (self):
         self.__caracteres = 8
@@ -76,3 +74,12 @@ class generacion:
                     messagebox.showinfo('Información', 'La contraseña medianamente segura')
                 else:
                     messagebox.showinfo('Información', 'La contraseña no es muy segura')
+                    
+                    
+class cuenta:
+    def __init__(self):
+        self.__numcuenta = 1234
+        
+        self.__saldo = 1000
+        
+         
