@@ -36,7 +36,12 @@ carrera.grid(row=5, column=1, pady="20")
 carrea_label.grid(row=5,column=0)
 
 def matricula():
-        usuario.matri(nombre.get(), apellidoP.get, apellidoM. get(), año.get(), carrera. get())
+    a=nombre.get()
+    b=apellidoP.get()
+    c=apellidoM.get()
+    d= año.get()
+    e= carrera.get()
+    usuario.matri(a, b, c, d, e)
 
 boton = Button(frame,text="Login", bg="#FF3399", fg="White", command= matricula, font="Arial, 16")
 boton.grid(row=6,column=0,columnspan=2,pady="30")
