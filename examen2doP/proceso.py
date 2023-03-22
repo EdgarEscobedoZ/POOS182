@@ -32,6 +32,7 @@ class validacion:
             
         message='23'+self.__añoN,self.__nombre.upper()+ self.__apellidoP.upper()+ self.__apellidoM.upper()+ random + self.__carrera.upper()
         messagebox.showinfo('info', message)
+        
             
         
         
