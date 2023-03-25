@@ -1,6 +1,15 @@
 from tkinter import *
 from tkinter import ttk
 import tkinter as tk
+from controladorBD import *
+
+# Instancia: Puente entre los dos archivos
+controlador = controladorBD()
+
+#Metodo que usa mi objeto controlador para insertar
+def ejectutaInsert():
+    controlador.guardarUsuario(varNom.get(), varCor.get(), varContra.get())
+    
 
 ventana = Tk()
 ventana.title('CRUD de usuarios')
@@ -29,7 +38,7 @@ varContra= tk.StringVar()
 lblContra= Label(pestana1, text='Contraseña: ').pack()
 txtContra= Entry(pestana1, textvariable=varContra).pack()
 
-btnGuardar= Button(pestana1, text='Guardar usuario').pack()
+btnGuardar= Button(pestana1, text='Guardar usuario', command=ejectutaInsert).pack()
 
 
 panel.add(pestana1, text='Agregar usuarios')
