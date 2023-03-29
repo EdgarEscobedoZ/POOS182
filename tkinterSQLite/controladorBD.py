@@ -10,7 +10,6 @@ class controladorBD:
     def conexionBD(self):
         try:
             conexion = sqlite3.connect(r'C:\Users\Edgar\OneDrive\Documentos\GitHub\POOS182\TkinterSQLite\DBUsuarios.db')
-            print('Conectado a la BD')
             return conexion
         except sqlite3.OperationalError:
             print('No se puede conectar')
@@ -51,4 +50,28 @@ class controladorBD:
         
         #Regresamos la contraseña encriptada
         return conHa
+    
+    def consultarUsuario(self, id):
         
+        #1. Realizar conexion BD
+        conx = self.conexionBD()
+        
+        #2. Verificar que el id no esté vacio
+        if(id==''):
+            messagebox.showwarning('Cuidado','Escribe un identificador')
+            conx.close()
+        else:
+            #3. Ejecutar la consulta
+            try:
+                #4. Preparamos lo necesario
+                cursor= conx.cursor()
+                sqlSelect = 'select * from tbRegistrados where id= '+id
+                
+                #5. Ejectutamos, guardamos la consulta y cerramos conexion
+                cursor.execute(sqlSelect)
+                RSusuario= cursor.fetchall()
+                conx.close()
+                return RSusuario
+                
+            except sqlite3.OperationalError:
+                print('Error de consulta')
