@@ -12,9 +12,9 @@ def ejectutaInsert():
     controlador.guardarUsuario(varNom.get(), varCor.get(), varContra.get())
 #Funcion que usa mi objeto controlador para buscar 1 usuario
 def ejecutarSelectU():
-    rsUsu = controlador.consultarUsuario(varBus.get())
+    rsUsu = controlador.buscarUsuario(varBus.get())
     textBus.delete('1.0', END)
-    
+
     #Iteramos el contenido de la consulta y lo guardamos en CADENA 
     for usu in rsUsu:
         cadena = str(usu[0])+' '+usu[1]+ ' '+usu[2] + ' '+ str(usu[3])
@@ -22,6 +22,15 @@ def ejecutarSelectU():
         textBus.insert(INSERT, cadena)
     else:
         messagebox.showinfo('No encontrado', 'Usuario no existe en BD')
+def ejecutarConsul():
+    rsConsul = controlador.consultarUsuario()
+    tree.delete(*tree.get_children())
+    for fila in rsConsul:
+        tree.insert('',tk.END, values=fila)
+        
+        
+        
+    
 
 ventana = Tk()
 ventana.title('CRUD de usuarios')
@@ -48,7 +57,7 @@ txtCor= Entry(pestana1, textvariable=varCor).pack()
 
 varContra= tk.StringVar()
 lblContra= Label(pestana1, text='Contraseña: ').pack()
-txtContra= Entry(pestana1, textvariable=varContra).pack()
+txtContra= Entry(pestana1, textvariable=varContra, show='*').pack()
 
 btnGuardar= Button(pestana1, text='Guardar usuario', command=ejectutaInsert).pack()
 
@@ -64,6 +73,29 @@ btnBusqueda= Button(pestana2,text='Buscar', command=ejecutarSelectU).pack()
 subBus= Label(pestana2, text='Resgistrado:', fg='blue',font=('Modern', 15)).pack()
 textBus= tk.Text(pestana2, width=52, height=5)
 textBus.pack()
+
+#Pestaña 3: Consultar Usuario
+tree = ttk.Treeview(pestana3, column=("c1", "c2", "c3", 'c4'), show='headings')
+
+tree.column("#1", anchor=tk.CENTER)
+
+tree.heading("#1", text="ID")
+
+tree.column("#2", anchor=tk.CENTER)
+
+tree.heading("#2", text="Nombre")
+
+tree.column("#3", anchor=tk.CENTER)
+
+tree.heading("#3", text="Correo")
+
+tree.column("#4", anchor=tk.CENTER)
+
+tree.heading("#4", text="Contra")
+
+tree.pack()
+btnConsul= Button(pestana3,text='Consultar', command=ejecutarConsul).pack()
+
 
 panel.add(pestana1, text='Agregar usuarios')
 panel.add(pestana2, text='Buscar usuario')
