@@ -51,7 +51,7 @@ class controladorBD:
         #Regresamos la contraseña encriptada
         return conHa
     
-    def consultarUsuario(self, id):
+    def buscarUsuario(self, id):
         
         #1. Realizar conexion BD
         conx = self.conexionBD()
@@ -75,3 +75,18 @@ class controladorBD:
                 
             except sqlite3.OperationalError:
                 print('Error de consulta')
+                
+    def consultarUsuario(self):
+        conx = self.conexionBD()
+            
+        try:
+                
+            cursor= conx.cursor()
+            sqlSelect = 'SELECT * FROM tbRegistrados'
+            cursor.execute(sqlSelect)
+            RSconsul= cursor.fetchall()
+            conx.close()
+            return RSconsul
+        except sqlite3.OperationalError:
+            print('Error de consulta')
+            conx.close()
