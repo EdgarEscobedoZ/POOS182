@@ -6,7 +6,6 @@ from controladorBD import *
 
 # Instancia: Puente entre los dos archivos
 controlador = controladorBD()
-
 #Metodo que usa mi objeto controlador para insertar
 def ejectutaInsert():
     controlador.guardarUsuario(varNom.get(), varCor.get(), varContra.get())
@@ -35,7 +34,21 @@ def ejecutarSelectU2():
         textBus.insert(INSERT, cadena)
     else:
         messagebox.showinfo('No encontrado', 'Usuario no existe en BD')
-        
+
+def ejecutarSelectU3():
+    rsUsuario = controlador.buscarUsuario(varAct.get())
+    varNom1.set('')
+    varCor1.set('')
+    varContra1.set('')
+    
+    if (rsUsuario):
+        for usu in rsUsuario:
+            varNom1.set(usu[1])
+            varCor1.set(usu[2])
+            varContra1.set(usu[3])
+    else:
+        messagebox.showinfo('No encontrado', 'Usuario no existe en BD')
+
 def ejecutarConsul():
     rsConsul = controlador.consultarUsuario()
     tree.delete(*tree.get_children())
@@ -43,13 +56,14 @@ def ejecutarConsul():
         tree.insert('',tk.END, values=fila)
 
 def ejecutarModi():
-    rsConsul = controlador.consultarUsuario()
-    tree.delete(*tree.get_children())
-    for fila in rsConsul:
-        tree.insert('',tk.END, values=fila)
+    ask = messagebox.askyesno('Confirmación','¿Seguro que quiere actualizar esta información?')
+    controlador.actualizarUsuario(varAct.get(), varNom1.get(), varCor1.get(), varContra1.get())
+    varNom1.set('')
+    varCor1.set('')
+    varContra1.set('')
+        
 
 def ejecutarEliminarU():
-    #Iteramos el contenido de la consulta y lo guardamos en CADENA 
     ask = messagebox.askyesno('Pregunta', '¿Seguro que quiere eliminar el usuario?')
     if ask == True:
         controlador.eliminarUsuario(varElim.get())
@@ -69,6 +83,7 @@ pestana1= ttk.Frame(panel)
 pestana2= ttk.Frame(panel)
 pestana3= ttk.Frame(panel)
 pestana4= ttk.Frame(panel)
+pestana5= ttk.Frame(panel)
 
 # Pestaña1: Formulario de registro
 titulo = Label(pestana1, text='Registro Usuarios', fg='blue', font=('Modern', 18)).pack()
@@ -120,7 +135,7 @@ tree.pack()
 btnConsul= Button(pestana3,text='Consultar', command=ejecutarConsul).pack()
 
 #Pestaña 4
-titulo3 = Label(pestana4, text='Actualizar Usuarios', fg = 'black', font=('Modern', 18)).pack()
+titulo4 = Label(pestana4, text='Eliminar Usuarios', fg = 'black', font=('Modern', 18)).pack()
 
 varElim= tk.StringVar()
 lblP4=Label(pestana4,text='Identificador de Usuario:').pack()
@@ -144,10 +159,36 @@ tree2.heading("#4", text="Contra")
 
 tree2.pack()
 
+#Pestaña 5
+titulo5 = Label(pestana5, text='Actualizar Usuarios', fg = 'black', font=('Modern', 18)).pack()
+
+varAct= tk.StringVar()
+lblP4=Label(pestana5,text='Identificador de Usuario:').pack()
+txtP4= Entry(pestana5,textvariable=varAct).pack()
+btnBusqueda= Button(pestana5,text='Buscar', command=ejecutarSelectU3).pack()
+
+
+
+varNom1= tk.StringVar()
+lblNom1= Label(pestana5, text='Nombre: ').pack()
+txtNom1= Entry(pestana5, textvariable=varNom1).pack()
+
+varCor1= tk.StringVar()
+lblCor1= Label(pestana5, text='Correo: ').pack()
+txtCor1= Entry(pestana5, textvariable=varCor1).pack()
+
+varContra1= tk.StringVar()
+lblContra1= Label(pestana5, text='Contraseña: ').pack()
+txtContra1= Entry(pestana5, textvariable=varContra1).pack()
+
+btnAct= Button(pestana5,text='Actualizar', command=ejecutarModi).pack()
+
+
 panel.add(pestana1, text='Agregar usuarios')
 panel.add(pestana2, text='Buscar usuario')
 panel.add(pestana3, text='Consultar usuarios')
-panel.add(pestana4, text='Actualizar usuario')
+panel.add(pestana4, text='Eliminar usuario')
+panel.add(pestana5, text='Actualizar usuario')
 
 
 ventana.mainloop()
