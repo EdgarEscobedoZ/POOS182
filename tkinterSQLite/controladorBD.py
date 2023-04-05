@@ -113,3 +113,30 @@ class controladorBD:
                 
             except sqlite3.OperationalError:
                 print('Error de consulta')
+                
+    def actualizarUsuario(self,id, nombre, correo, contra):
+        conx= self.conexionBD()
+        
+        if(id==''):
+            messagebox.showwarning('Cuidado','Escribe un identificador')
+            conx.close()
+        if (nombre == '' or correo == '' or contra == ''):
+            messagebox.showwarning('Aguas!!', 'Formulario incompleto')
+        else:
+            #3. Ejecutar la consulta
+            try:
+                #4. Preparamos lo necesario
+                cursor= conx.cursor()
+                conH = self.encriptarContra(contra)
+                datos=(nombre,correo,conH)
+                sqlDelete = 'update tbRegistrados set nombre=?,correo=?,contra=? where id= '+id
+                
+                #5. Ejectutamos, guardamos la consulta y cerramos conexion
+                cursor.execute(sqlDelete,datos)
+                conx.commit()
+                #cursor.fetchall()
+                conx.close()
+                messagebox.showinfo('Info','Información actualizada')
+                
+            except sqlite3.OperationalError:
+                print('Error de consulta')
