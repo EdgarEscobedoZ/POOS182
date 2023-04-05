@@ -2,12 +2,12 @@ from tkinter import Tk, Button, Frame, messagebox
 
 #5. agregar funcion de mensaje
 def mostrarMensaje():
-    messagebox.showinfo("Información", "Te informo que todo fallo con exito")
-    messagebox.showerror('Error','Perdon te falle!!')
-    print(messagebox.askokcancel('Pregunta', '¿Seguro que quieres guardar algo?'))
+    #messagebox.showinfo("Información", "Te informo que todo fallo con exito")
+    #messagebox.showerror('Error','Perdon te falle!!')
+    #print(messagebox.askokcancel('Pregunta', '¿Seguro que quieres guardar algo?'))
     #print(messagebox.askquestion('Pregunta',"probando"))
     #print(messagebox.askretrycancel('Pregunta',"probando"))
-    #print(messagebox.askyesno('Pregunta',"probando"))
+    print(messagebox.askyesno('Pregunta',"probando"))
 
 #6. Funcion agregar botones
 def agregarBoton():
