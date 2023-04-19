@@ -22,21 +22,23 @@ def ejecutarSelectU3():
         messagebox.showinfo('No encontrado', 'Usuario no existe en BD')
         
 def ejecutarModi():
-    messagebox.askyesno('Confirmación','¿Seguro que quiere actualizar esta información?')
-    controlador.actualizarRegistro(varAct.get(), varNom1.get(), varCor1.get())
-    varAct.set('')
-    varNom1.set('')
-    varCor1.set('')
+    ask=messagebox.askyesno('Confirmación','¿Seguro que quiere actualizar esta información?')
+    if ask == True:
+        controlador.actualizarRegistro(varAct.get(), varNom1.get(), varCor1.get())
+        varAct.set('')
+        varNom1.set('')
+        varCor1.set('')
+        
     
 def ejecutarConsul():
-    rsConsul = controlador.consultarUsuario()
+    rsConsul = controlador.consultarRegistro()
     tree.delete(*tree.get_children())
     for fila in rsConsul:
         tree.insert('',tk.END, values=fila)
 
 ventana = Tk()
 ventana.title('BD Ferretería')
-ventana.geometry('500x300')
+ventana.geometry('700x400')
 
 panel= ttk.Notebook(ventana)
 panel.pack(fill='both', expand='yes')

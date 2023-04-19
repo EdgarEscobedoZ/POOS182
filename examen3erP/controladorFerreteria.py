@@ -64,11 +64,11 @@ class controladorBD:
             except sqlite3.OperationalError:
                 print('Error de consulta')
     
-    def consultarUsuario(self):
+    def consultarRegistro(self):
         conx = self.conexionBD()
         try:
             cursor= conx.cursor()
-            sqlSelect = 'SELECT * FROM tbRegistrados'
+            sqlSelect = 'SELECT * FROM MatConstruccion'
             cursor.execute(sqlSelect)
             RSconsul= cursor.fetchall()
             conx.close()
